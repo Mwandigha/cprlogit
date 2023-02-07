@@ -22,14 +22,14 @@ You may find it easier to mass install  (and) load all the R packages using the 
  
  if(!(require("pacman"))){install.packages("pacman")}
  
- pacman::pload(tidyverse,
-               glmnet",
-               InformationValue,
-               stats,
-               qpcR,
-               pROC,
-               fmsb,
-               coxed)
+ pacman::p_load(tidyverse,
+                glmnet",
+                InformationValue,
+                stats,
+                qpcR,
+                pROC,
+                fmsb,
+                coxed)
 
 
 ``` 

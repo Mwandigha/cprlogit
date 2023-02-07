@@ -22,14 +22,14 @@ The entire "cprlogit_boot_function.R" should be saved. For the code to run, the 
  
  if(!(require("pacman"))){install.packages("pacman")}
  
- pacman::pload(tidyverse,
-               glmnet",
-               InformationValue,
-               stats,
-               rsample,
-               pROC,
-               fmsb,
-               coxed)
+ pacman::p_load(tidyverse,
+                glmnet",
+                InformationValue,
+                stats,
+                rsample,
+                pROC,
+                fmsb,
+                coxed)
 
 
 ``` 
