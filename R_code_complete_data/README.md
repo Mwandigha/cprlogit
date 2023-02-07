@@ -36,7 +36,7 @@ lapply(lib.load.list,
  
 # User input
 
-Head to head comparison using pairwise deleted data may b performed by running "logit.penalised.comparison()" function. Below is a demonstration using data (not shared) where three clinical variables (oxygen saturation, age and sex) and an outcome (met.end.point.updated) are used. Lasso regression is fitted using the R package glmnet  with alpha=1 (ridge =0 and elastic net any value between 0 and 1). The $\lambda$ value is the regularisation parameter estimated using cross validation. Please visit https://glmnet.stanford.edu/articles/glmnet.html for more information.
+Head to head comparison using pairwise deleted data may be performed by running "logit.penalised.comparison()" function. Below is a demonstration using data (not shared) where three clinical variables (oxygen saturation, age and sex) and an outcome (met.end.point.updated) are used. Lasso regression is fitted using the R package glmnet  with alpha=1 (alternativel, set ridge = 0 or  any value between 0 and 1 for elastic net). The $\lambda$ value is the regularisation parameter estimated using cross validation. Please visit https://glmnet.stanford.edu/articles/glmnet.html for more information.
 
 ```{r eval = FALSE, echo = FALSE}
 
@@ -86,6 +86,38 @@ logit.penalised.comparison(logit.model=logistic_Need.o2_mod,
                            outcome="met.end.point.updated",
                            round.off.digits=4,
                            prob.class=0.25)
+
+$parameters
+            logistic.model penalised.logistic.model shrinkage
+(Intercept)        40.7473                  37.2067        NA
+vsoxy              -0.4368                  -0.3992    0.9140
+ageyr               0.0012                   0.0000    0.0000
+sex                -0.0559                   0.0000    0.0000
+CRP                 0.0041                   0.0035    0.8582
+
+$overall.measures.of.performance
+              logit.model penalised.logit.model
+R2.Nagelkerke      0.1522                0.0986
+Brier.score        0.2919                0.2895
+
+$measures.of.discrimination
+    Statistic logit.model penalised.logit.model
+1         auc      0.7268                0.7279
+2 concordance      0.7268                0.7279
+3 sensitivity      0.6292                0.6180
+4 specificity      0.7295                0.7356
+5 brier.score      0.2919                0.2895
+6         ppv      0.3862                0.3873
+7         npv      0.8791                0.8768
+8         LR+      2.3260                2.3369
+9         LR-      0.5083                0.5194
+
+$measures.of.calibration
+               Statistic logit.model penalised.logit.model
+1 n.predicted/n.outcomes      1.6292                1.5955
+2          cox.intercept      0.0000                0.1382
+3              cox.slope      1.0000                1.1188
+
 ```
 Case resampling bootstrapping is performed using the "bootstrap.sample()" function. For blocked bootsrap, a grouping variable may be specified using "strata=group" argument in the function. The object from the function is utilised by the "glm.net.cc.fit()" function to generate a data frame of the performance measures for each of the bootstrap sample.  
  
@@ -120,4 +152,50 @@ tests.reg.summary <- parameter_estimates.cc(results=tests.reg,
                                             alpha=0.05)
 
 tests.reg.summary
- 
+
+$logistic.regression
+$logistic.regression[[1]]
+                       PT_0.25_Mean BCa.LL_2.5% BCa.UL_97.5%
+Intercept                   41.0862     28.1488      59.1972
+Beta_vsoxy                  -0.4408     -0.6266      -0.3121
+Beta_ageyr                   0.0020     -0.0159       0.0157
+Beta_sex                    -0.0969     -0.6453       0.3426
+Beta_CRP                     0.0040      0.0011       0.0062
+auc                          0.7331      0.6802       0.7878
+mse                         -0.0446     -0.1180       0.0259
+R2.Nagelkerke                0.1608      0.1054       0.2619
+brier.score                  0.2810      0.2273       0.3325
+concordance                  0.7331      0.6802       0.7878
+n.predicted/n.outcomes       1.5280      1.2820       1.7357
+cox.int                      0.0000      0.0000       0.0000
+cox.slope                    1.0000      1.0000       1.0000
+sensitivity                  0.5987      0.4609       0.7363
+specificity                  0.7496      0.6800       0.8285
+ppv                          0.3913      0.3300       0.4463
+npv                          0.8756      0.8447       0.9101
+LR+                          2.4281      1.8282       3.1908
+LR-                          0.5342      0.3667       0.7053
+
+$logistic.regression[[2]]
+                       PT_0.3_Mean BCa.LL_2.5% BCa.UL_97.5%
+Intercept                  41.0862     28.1488      59.1972
+Beta_vsoxy                 -0.4408     -0.6266      -0.3121
+Beta_ageyr                  0.0020     -0.0159       0.0157
+Beta_sex                   -0.0969     -0.6453       0.3426
+Beta_CRP                    0.0040      0.0011       0.0062
+auc                         0.7331      0.6802       0.7878
+mse                        -0.0446     -0.1180       0.0259
+R2.Nagelkerke               0.1608      0.1054       0.2619
+brier.score                 0.2502      0.1980       0.2895
+concordance                 0.7331      0.6802       0.7878
+n.predicted/n.outcomes      1.1122      0.8277       1.3395
+cox.int                     0.0000      0.0000       0.0000
+cox.slope                   1.0000      1.0000       1.0000
+sensitivity                 0.4633      0.2778       0.6524
+specificity                 0.8248      0.7711       0.8847
+ppv                         0.4123      0.2822       0.4893
+npv                         0.8529      0.8070       0.8932
+LR+                         2.6749      1.6222       3.8026
+LR-                         0.6493      0.4341       0.8602
+
+```
