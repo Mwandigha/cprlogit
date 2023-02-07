@@ -57,7 +57,7 @@ lapply(lib.load.list,
 
 # User input
 
-Multiply imputed datasets from R package "mice" converted to long format are required for the evaluation of the clinical prediction model. The predictors (at least one for regularised regression) and outcome variable must be specified along with number of imputations. More than one probability threshold for classification are permitted, with default of 0.5 used if none is provided. For the models, the following are available - 1 (regularised/ penalised logistic regression with alpha.param set to 0=ridge,  1=lasso and any value in-between being elastic net regression), 2 (logistic regression) and 3 (both regularised and logistic).
+Multiply imputed datasets from R package "mice" converted to long format are required for the evaluation of the clinical prediction model. The predictors (at least one for regularised regression) and outcome variable must be specified along with number of imputations. More than one probability threshold for classification are permitted, with default of 0.5 used if none is provided. For the models, the following are available - 1 (regularised/ penalised logistic regression with alpha.param set to 0=ridge,  1=lasso and any value in-between for elastic net regression), 2 (logistic regression) and 3 (both regularised and logistic).
 
 ```{r eval = FALSE, echo = FALSE}
 
