@@ -14,7 +14,26 @@ The entire "cprlogit_boot_function.R" should be saved. For the code to run, the 
  * fmsb
  * coxed
  
- You may find it easier to mass install all the R packages using the following R code.
+ You may find it easier to mass install  (and) load all the R packages using the pacman R package.
+ 
+ ```{r eval = FALSE, echo = FALSE}
+ 
+ ### Not run
+ 
+ if(!(require("pacman"))){install.packages("pacman")}
+ 
+ pacman::pload(tidyverse,
+               glmnet",
+               InformationValue,
+               stats,
+               rsample,
+               pROC,
+               fmsb,
+               coxed)
+
+
+``` 
+If the packages are already installed, you may mass load them without using pacman R package as follows
 
 ```{r eval = FALSE, echo = FALSE}
 
