@@ -55,7 +55,7 @@ lapply(lib.load.list,
 
 # User input
 
-Head to head comparison using pairwise deleted data may be performed by running *logit.penalised.comparison()* function. Below is a demonstration using data (not shared) where three clinical variables (oxygen saturation, age and sex) and an outcome (met.end.point.updated) are used. Lasso regression is fitted using the R package *glmnet*. For the models, the following are available, specifically 1 (regularised/ penalised logistic regression with alpha.param set to 0 for ridge, 1 for lasso and any value in-between for elastic net regression), 2 (logistic regression) and 3 (both regularised and logistic). Please visit [link](https://glmnet.stanford.edu/articles/glmnet.html) for more information on the model types supported by *glmnet* R package and for how cross validation is implemented.
+Head to head comparison using pairwise deleted data may be performed by running *logit.penalised.comparison()* function. Below is a demonstration using data (not shared) where three clinical variables (oxygen saturation, age and sex) and an outcome (met.end.point.updated) are used. Lasso regression is fitted using the R package *glmnet*. For the models, the following are available, specifically 1 (regularised/ penalised logistic regression with alpha.param set to 0 for ridge, 1 for lasso and any value in-between for elastic net regression), 2 (logistic regression) and 3 (both regularised and logistic). Please visit [link](https://glmnet.stanford.edu/articles/glmnet.html) for more information on the model types supported by *glmnet* R package and implementation of cross validation.
 
 ```{r eval = FALSE, echo = FALSE}
 
@@ -91,11 +91,7 @@ lasso_Need.o2_mod <-  glmnet::glmnet(x=Need.o2_x,
 logistic_Need.o2_mod <- stats::glm(met.end.point.updated~ vsoxy + ageyr + sex + CRP,
                                    data=test_data.use,
                                    family=binomial(link="logit")) 
-                                   
-```
-
-```{r eval = FALSE, echo = FALSE}
-summary(logistic_Need.o2_mod)
+                                   summary(logistic_Need.o2_mod)
 
 
 # Head to head comparison between logistic and regularised regression model
@@ -107,6 +103,11 @@ logit.penalised.comparison(logit.model=logistic_Need.o2_mod,
                            outcome="met.end.point.updated",
                            round.off.digits=4,
                            prob.class=0.25)
+                                   
+```
+
+```{r eval = FALSE, echo = FALSE}
+
 
 $parameters
             logistic.model penalised.logistic.model shrinkage
