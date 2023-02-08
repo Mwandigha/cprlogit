@@ -32,7 +32,7 @@ The entire "cprlogit_boot_function.R" should be saved. For the code to run, the 
 
 
 ``` 
-Note that  *InformationValue* R package is not supported in CRAN and should thus be installed from the archive here [archive](https://cran.r-project.org/src/contrib/Archive/InformationValue/). If the packages are already installed, you may mass load them without using pacman R package as follows
+Note that  *InformationValue* R package is not supported in CRAN and should thus be installed from the archive [here](https://cran.r-project.org/src/contrib/Archive/InformationValue/). If the packages are already installed, you may mass load them without using pacman R package as follows
 
 ```{r eval = FALSE, echo = FALSE}
 
