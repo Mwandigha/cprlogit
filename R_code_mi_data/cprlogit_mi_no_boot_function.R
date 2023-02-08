@@ -1405,14 +1405,14 @@ regularisation.no_boot.mi.logit <- function(data.boot.mi_complete,
 
 ## This allows multiple probability threshold to be specified by the user
 
-glm.net.no_boot.m.fit <- function(data.boot.mi_complete,
-                                  predictors,
-                                  outcome,
-                                  data.set.no,
-                                  thres.prob.classifier=NULL,
-                                  model.options,
-                                  alpha.param,
-                                  seed.input)
+glm.net.no_boot.mi.fit <- function(data.boot.mi_complete,
+                                   predictors,
+                                   outcome,
+                                   data.set.no,
+                                   thres.prob.classifier=NULL,
+                                   model.options,
+                                   alpha.param,
+                                   seed.input)
 {
   #####
   if (is.null(thres.prob.classifier))
