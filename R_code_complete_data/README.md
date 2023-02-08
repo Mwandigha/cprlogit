@@ -1,38 +1,40 @@
 # R function description
-These R functions are utilised for evaluating clinical prediction performance measures for binary outcomes for complete data (or single imputed data using median or mean imputation) using a logistic regression model. Also computed (on request) are optimism adjusted performance measures obtained via penalised (regularised) logistic regression model, with their corresponding Bias Corrected accelarated (BCa) percentile confidence intervals following case resampling (blocked) bootstrap.
 
+These R functions are utilised for evaluating clinical prediction performance measures for binary outcomes for complete data (or single imputed data using median or mean imputation) using a *logistic regression model*. Also computed (on request) are optimism adjusted performance measures obtained via *penalised (regularised) logistic regression model*, with their corresponding *Bias Corrected accelarated (BCa) percentile confidence intervals* following *case resampling (blocked) bootstrap*.
 
 # Required R packages
-The entire "cprlogit_boot_function.R" should be saved. For the code to run, the following R packages should be Installed (and loaded)Install (and load) the following
- 
- * tidyverse
- * glmnet
- * InformationValue
- * stats
- * rsample
- * pROC
- * fmsb
- * coxed
- 
- You may find it easier to mass install  (and) load all the R packages using the pacman R package.
- 
- ```{r eval = FALSE, echo = FALSE}
- 
- ### Not run
- 
- if(!(require("pacman"))){install.packages("pacman")}
- 
- pacman::p_load(tidyverse,
-                glmnet,
-                stats,
-                rsample,
-                pROC,
-                fmsb,
-                coxed)
+
+The entire *cprlogit_boot_function.R* should be saved. For the code to run, the following R packages should be Installed (and loaded)
+
+-   tidyverse
+-   glmnet
+-   InformationValue
+-   stats
+-   rsample
+-   pROC
+-   fmsb
+-   coxed
+
+You may find it easier to mass install (and) load all the R packages using the pacman R package.
+
+```{r eval = FALSE, echo = FALSE}
+
+### Not run
+
+if(!(require("pacman"))){install.packages("pacman")}
+
+pacman::p_load(tidyverse,
+               glmnet,
+               stats,
+               rsample,
+               pROC,
+               fmsb,
+               coxed)
 
 
-``` 
-Note that  *InformationValue* R package is not supported in CRAN and should thus be installed from the archive [here](https://cran.r-project.org/src/contrib/Archive/InformationValue/). If the packages are already installed, you may mass load them without using pacman R package as follows
+```
+
+Note that *InformationValue* R package is not supported in CRAN and should thus be installed from the archive [here](https://cran.r-project.org/src/contrib/Archive/InformationValue/). If the packages are already installed, you may mass load them without using pacman R package as follows
 
 ```{r eval = FALSE, echo = FALSE}
 
@@ -51,10 +53,9 @@ lapply(lib.load.list,
        library)
 ```
 
- 
 # User input
 
-Head to head comparison using pairwise deleted data may be performed by running "logit.penalised.comparison()" function. Below is a demonstration using data (not shared) where three clinical variables (oxygen saturation, age and sex) and an outcome (met.end.point.updated) are used. Lasso regression is fitted using the R package glmnet  with alpha=1 (alternatively, set ridge = 0 or  any value between 0 and 1 for elastic net). The $\lambda$ value is the regularisation parameter estimated using cross validation. Please visit [link](https://glmnet.stanford.edu/articles/glmnet.html) for more information for more information on the model types supported by *glmnet* R package and how cross validation is implemented.
+Head to head comparison using pairwise deleted data may be performed by running *logit.penalised.comparison()* function. Below is a demonstration using data (not shared) where three clinical variables (oxygen saturation, age and sex) and an outcome (met.end.point.updated) are used. Lasso regression is fitted using the R package *glmnet*. For the models, the following are available, specifically 1 (regularised/ penalised logistic regression with alpha.param set to 0 for ridge, 1 for lasso and any value in-between for elastic net regression), 2 (logistic regression) and 3 (both regularised and logistic). Please visit [link](https://glmnet.stanford.edu/articles/glmnet.html) for more information on the model types supported by *glmnet* R package and for how cross validation is implemented.
 
 ```{r eval = FALSE, echo = FALSE}
 
@@ -92,7 +93,6 @@ logistic_Need.o2_mod <- stats::glm(met.end.point.updated~ vsoxy + ageyr + sex + 
                                    family=binomial(link="logit")) 
                                    
 ```
-
 
 ```{r eval = FALSE, echo = FALSE}
 summary(logistic_Need.o2_mod)
@@ -140,9 +140,10 @@ $measures.of.calibration
 3              cox.slope      1.0000                1.1188
 
 ```
-Case resampling bootstrapping is performed using the "bootstrap.sample()" function. For blocked bootsrap, a grouping variable may be specified using "strata=group" argument in the function. The object from the function is utilised by the "glm.net.cc.fit()" function to generate a data frame of the performance measures for each of the bootstrap sample.  
- 
-The predictors (at least one for regularised regression) and outcome variable must be specified along with number bootstrap performed. More than one probability threshold for classification are permitted, with default of 0.5 used if none is provided. For the models, the following are available - 1 (regularised/ penalised logistic regression with alpha.param set to 0=ridge,  1=lasso and any value in-between being elastic net regression), 2 (logistic regression) and 3 (both regularised and logistic).
+
+Case resampling bootstrapping is performed using the *bootstrap.sample()* function. For blocked bootsrap, a grouping variable may be specified using "strata=group" argument in the function. The object from the function is utilised by the *glm.net.cc.fit()* function to generate a data frame of the performance measures for each of the bootstrap sample.
+
+The predictors (at least one for regularised regression) and outcome variable must be specified along with number bootstrap performed. More than one probability threshold for classification are permitted, with default of 0.5 used if none is provided.
 
 ```{r eval = FALSE, echo = FALSE}
 
@@ -171,9 +172,11 @@ The different performance measures of overall model performance, calibration and
 
 tests.reg.summary <- parameter_estimates.cc(results=tests.reg,
                                             alpha=0.05)
-```
-```{r eval = FALSE, echo = FALSE}
+                                            
 tests.reg.summary
+```
+
+```{r eval = FALSE, echo = FALSE}
 
 $logistic.regression
 $logistic.regression[[1]]
