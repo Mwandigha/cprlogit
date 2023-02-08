@@ -171,7 +171,8 @@ The different performance measures of overall model performance, calibration and
 
 tests.reg.summary <- parameter_estimates.cc(results=tests.reg,
                                             alpha=0.05)
-
+```
+```{r eval = FALSE, echo = FALSE}
 tests.reg.summary
 
 $logistic.regression
