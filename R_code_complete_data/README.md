@@ -54,7 +54,7 @@ lapply(lib.load.list,
  
 # User input
 
-Head to head comparison using pairwise deleted data may be performed by running "logit.penalised.comparison()" function. Below is a demonstration using data (not shared) where three clinical variables (oxygen saturation, age and sex) and an outcome (met.end.point.updated) are used. Lasso regression is fitted using the R package glmnet  with alpha=1 (alternatively, set ridge = 0 or  any value between 0 and 1 for elastic net). The $\lambda$ value is the regularisation parameter estimated using cross validation. Please visit [link](https://glmnet.stanford.edu/articles/glmnet.html) for more information.
+Head to head comparison using pairwise deleted data may be performed by running "logit.penalised.comparison()" function. Below is a demonstration using data (not shared) where three clinical variables (oxygen saturation, age and sex) and an outcome (met.end.point.updated) are used. Lasso regression is fitted using the R package glmnet  with alpha=1 (alternatively, set ridge = 0 or  any value between 0 and 1 for elastic net). The $\lambda$ value is the regularisation parameter estimated using cross validation. Please visit [link](https://glmnet.stanford.edu/articles/glmnet.html) for more information for more information on the model types supported by *glmnet* R package and how cross validation is implemented.
 
 ```{r eval = FALSE, echo = FALSE}
 
