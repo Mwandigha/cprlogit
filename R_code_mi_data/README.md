@@ -62,14 +62,14 @@ Multiply imputed datasets from R package "mice" converted to long format are req
 
 ```{r eval = FALSE, echo = FALSE}
 
-test_results <- glm.net.no_boot.m.fit(data.boot.mi_complete=data, # multiply imputed dataframe 
-                                      predictors=c("predictor1","predictor2",....),
-                                      outcome="outcome_variable",
-                                      data.set.no=5, # number of imputations
-                                      thres.prob.classifier=c(0.05,0.075), 
-                                      model.options=1,
-                                      alpha.param=1,
-                                      seed.input=8754654)
+test_results <- glm.net.no_boot.mi.fit(data.boot.mi_complete=data, # multiply imputed dataframe 
+                                       predictors=c("predictor1","predictor2",....),
+                                       outcome="outcome_variable",
+                                       data.set.no=5, # number of imputations
+                                       thres.prob.classifier=c(0.05,0.075), 
+                                       model.options=1,
+                                       alpha.param=1,
+                                       seed.input=8754654)
                                        
 
 ```
