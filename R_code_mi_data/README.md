@@ -33,7 +33,7 @@ You may find it easier to mass install  (and) load all the R packages using the 
 
 
 ``` 
-Note that  *InformationValue* R package is not supported in CRAN and should thus be installed from the archive here [archive](https://cran.r-project.org/src/contrib/Archive/InformationValue/).
+Note that  *InformationValue* R package is not supported in CRAN and should thus be installed from the archive  [here](https://cran.r-project.org/src/contrib/Archive/InformationValue/).
 If the packages are already installed, you may mass load them without using *pacman* R package as follows
 
 ```{r eval = FALSE, echo = FALSE}
@@ -58,7 +58,7 @@ lapply(lib.load.list,
 
 # User input
 
-Multiply imputed datasets from R package "mice" converted to long format are required for the evaluation of the clinical prediction model. The predictors (at least one for regularised regression) and outcome variable must be specified along with number of imputations. More than one probability threshold for classification are permitted, with default of 0.5 used if none is provided. For the models, the following are available - 1 (regularised/ penalised logistic regression with alpha.param set to 0=ridge,  1=lasso and any value in-between for elastic net regression), 2 (logistic regression) and 3 (both regularised and logistic).
+Multiply imputed datasets from R package "mice" converted to long format are required for the evaluation of the clinical prediction model. The predictors (at least one for regularised regression) and outcome variable must be specified along with number of imputations. More than one probability threshold for classification are permitted, with default of 0.5 used if none is provided. For the models, the following are available - 1 (regularised/ penalised logistic regression with alpha.param set to 0=ridge,  1=lasso and any value in-between for elastic net regression), 2 (logistic regression) and 3 (both regularised and logistic). Please visit [link](https://glmnet.stanford.edu/articles/glmnet.html) for more information on the model types supported by *glmnet* R package.
 
 ```{r eval = FALSE, echo = FALSE}
 
