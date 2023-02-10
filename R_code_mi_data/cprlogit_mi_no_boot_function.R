@@ -2080,7 +2080,7 @@ parameter_estimates.mi_no_boot <-  function(results,
       
       
       ####
-      output <- list("regularised.regression"=soln.reg.df,
+      output <- list("regularised.regression"=soln.reg.df.output,
                      "logistic.regression"=soln.log.df.output)
       
       return(output)
