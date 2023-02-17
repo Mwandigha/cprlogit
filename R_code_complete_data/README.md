@@ -15,7 +15,7 @@ The entire *cprlogit_boot_function.R* should be saved. For the code to run, the 
 -   fmsb
 -   coxed
 
-You may find it easier to mass install (and) load all the R packages using the pacman R package.
+You may find it easier to mass install (and load) all the R packages using the pacman R package.
 
 ```{r eval = FALSE, echo = FALSE}
 
@@ -55,7 +55,7 @@ lapply(lib.load.list,
 
 # User input
 
-Head to head comparison using pairwise deleted data may be performed by running *logit.penalised.comparison()* function. Below is a demonstration using data (not shared) where three clinical variables (oxygen saturation, age and sex) and an outcome (met.end.point.updated) are used. Lasso regression is fitted using the R package *glmnet*. For the models, the following are available, specifically 1 (regularised/ penalised logistic regression with alpha.param set to 0 for ridge, 1 for lasso and any value in-between for elastic net regression), 2 (logistic regression) and 3 (both regularised and logistic). Please visit [link](https://glmnet.stanford.edu/articles/glmnet.html) for more information on the model types supported by *glmnet* R package and implementation of cross validation.
+Head to head comparison using pairwise deleted data may be performed by running *logit.penalised.comparison()* function. Below is a demonstration using data (not shared) where three clinical variables (oxygen saturation, age and sex) and an outcome (met.end.point.updated) are used. Lasso regression is fitted using the R package *glmnet*. For the models, the following are available, specifically 1 (regularised/ penalised logistic regression with alpha.param set to 0 for ridge, 1 for lasso and any value in-between for elastic net regression), 2 (logistic regression) and 3 (both regularised and logistic). The number of cross validation samples defaults to 10 if unspecified. A minimum of 3 is cross validation samples are allowed with the maximum being equal to the sample size due to jackknife. Please visit [link](https://glmnet.stanford.edu/articles/glmnet.html) for more information on the model types supported by *glmnet* R package and implementation of cross validation.
 
 ```{r eval = FALSE, echo = FALSE}
 
@@ -142,9 +142,9 @@ $measures.of.calibration
 
 ```
 
-Case resampling bootstrapping is performed using the *bootstrap.sample()* function. For blocked bootsrap, a grouping variable may be specified using "strata=group" argument in the function. The object from the function is utilised by the *glm.net.cc.fit()* function to generate a data frame of the performance measures for each of the bootstrap sample.
+Case resampling bootstrapping is performed using the *bootstrap.sample()* function. For blocked bootstrap, a grouping variable may be specified using "strata=group" argument in the function. The object from the function is utilised by the *glm.net.cc.fit()* function to generate a data frame of the performance measures for each of the bootstrap sample.
 
-The predictors (at least one for regularised regression) and outcome variable must be specified along with number bootstrap performed. More than one probability threshold for classification are permitted, with default of 0.5 used if none is provided.
+The predictors (at least two for regularised regression) and outcome variable must be specified along with number bootstrap performed. More than one probability threshold for classification are permitted, with default of 0.5 used if none is provided.
 
 ```{r eval = FALSE, echo = FALSE}
 
@@ -162,6 +162,7 @@ tests.reg <- glm.net.cc.fit(data.boot.complete=block.boot.cc.samples,
                             data.set.no=100,
                             thres.prob.classifier=c(0.25,0.3),
                             model.options=2,
+                            nfolds=3,
                             alpha.param=1,
                             seed.input=7879690)
                             

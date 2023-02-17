@@ -1,6 +1,6 @@
 ## Background
 
-This project is a work in progress that has grown over time stemming from a need for a one stop shop solution for the evaluation of clinical prediction models for those who are either not interested or skilled in (advanced) programming. A host of performance measures are computed that cover
+This project is a work in progress that has grown over time stemming from a need for a one stop shop solution for the evaluation of clinical prediction models for those who are either not interested or skilled in (advanced) R  programming. A host of performance measures are computed that cover
 
 -   overall model performance
 -   discrimination ability of the model

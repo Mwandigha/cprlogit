@@ -474,6 +474,7 @@ regularisation.boot.cc.logit <- function(data.boot.complete,
                                          data.set.no,
                                          thres.prob.classifier=NULL,
                                          model.options=NULL,
+                                         nfolds=NULL,
                                          alpha.param,
                                          seed.input)
 {
@@ -493,6 +494,10 @@ regularisation.boot.cc.logit <- function(data.boot.complete,
        }
        
   }
+  
+  ####
+  if(is.null(nfolds)){nfolds <- 10}
+  if(!is.null(nfolds) & nfolds < 3){stop("number of nfolds should be at least three")}
   
   ####
   if(is.null(model.options)){model.options <- 2}
@@ -564,7 +569,7 @@ regularisation.boot.cc.logit <- function(data.boot.complete,
                              glmnet::cv.glmnet(x=pred.vars[[j]],
                                                y=outcome.var[[j]], 
                                                alpha = alpha.param,
-                                               nfolds=10,
+                                               nfolds=nfolds,
                                                type.measure="deviance",
                                                family = "binomial")})
     
@@ -1190,7 +1195,7 @@ regularisation.boot.cc.logit <- function(data.boot.complete,
                              glmnet::cv.glmnet(x=pred.vars[[j]],
                                                y=outcome.var[[j]], 
                                                alpha = alpha.param,
-                                               nfolds=10,
+                                               nfolds=nfolds,
                                                type.measure="deviance",
                                                family = "binomial")})
     
@@ -1794,6 +1799,7 @@ regularisation.fit.cc.logit.link <- function(data.boot.complete,
                                              data.set.no,
                                              thres.prob.classifier=NULL,
                                              model.options,
+                                             nfolds,
                                              alpha.param,
                                              seed.input)
 {
@@ -1806,6 +1812,7 @@ regularisation.fit.cc.logit.link <- function(data.boot.complete,
                                            data.set.no=data.set.no,
                                            thres.prob.classifier=thres.prob.classifier,
                                            model.options=model.options,
+                                           nfolds=nfolds,
                                            alpha.param=alpha.param,
                                            seed.input=seed.input)
     
@@ -1830,18 +1837,21 @@ glm.net.cc.fit <- function(data.boot.complete,
                            data.set.no,
                            thres.prob.classifier=NULL,
                            model.options,
+                           nfolds,
                            alpha.param,
                            seed.input)
 {
   #####
   if (is.null(thres.prob.classifier))
   {
+    
     output <- regularisation.fit.cc.logit.link(data.boot.complete=data.boot.complete,
                                                predictors=predictors,
                                                outcome=outcome,
                                                data.set.no=data.set.no,
                                                thres.prob.classifier=NULL,
                                                model.options=model.options,
+                                               nfolds=nfolds,
                                                alpha.param=alpha.param,
                                                seed.input=seed.input) 
   }
@@ -1849,7 +1859,6 @@ glm.net.cc.fit <- function(data.boot.complete,
   if (!is.null(thres.prob.classifier))
   {
     
-
     output <-  purrr::map(thres.prob.classifier, 
                           function(x)
                           {
@@ -1859,6 +1868,7 @@ glm.net.cc.fit <- function(data.boot.complete,
                                                              data.set.no=data.set.no,
                                                              thres.prob.classifier=x,
                                                              model.options=model.options,
+                                                             nfolds=nfolds,
                                                              alpha.param=alpha.param,
                                                              seed.input=seed.input) 
                           })
@@ -2382,6 +2392,7 @@ calibration_plot.inputs <- function(data,
                                     predictors,
                                     outcome,
                                     thres.prob.classifier=NULL,
+                                    nfolds=NULL,
                                     alpha.param,
                                     seed.input)
 {
@@ -2405,6 +2416,9 @@ calibration_plot.inputs <- function(data,
   }
   
   if(is.null(thres.prob.classifier)){thres.prob.classifier <- 0.5}
+  ####
+  if(is.null(nfolds)){nfolds <- 10}
+  if(!is.null(nfolds) & nfolds < 3){stop("number of nfolds should be at least three")}
   
   ##
   if(!is.null(alpha.param))
@@ -2447,7 +2461,7 @@ calibration_plot.inputs <- function(data,
   cv.lasso.dev <-  glmnet::cv.glmnet(x=pred.vars,
                                      y=outcome.var, 
                                      alpha = alpha.param,
-                                     nfolds=10,
+                                     nfolds=nfolds,
                                      type.measure="deviance",
                                      family = "binomial")
   

@@ -80,6 +80,7 @@ regularisation.no_boot.mi.logit <- function(data.boot.mi_complete,
                                             data.set.no,
                                             thres.prob.classifier=NULL,
                                             model.options=NULL,
+                                            nfolds=NULL,
                                             alpha.param,
                                             seed.input)
 {
@@ -99,6 +100,9 @@ regularisation.no_boot.mi.logit <- function(data.boot.mi_complete,
     }
     
   }
+  ####
+  if(is.null(nfolds)){nfolds <- 10}
+  if(!is.null(nfolds) & nfolds < 3){stop("number of nfold should be at least three")}
   
   ####
   if(is.null(model.options)){model.options <- 2}
@@ -172,7 +176,7 @@ regularisation.no_boot.mi.logit <- function(data.boot.mi_complete,
                              glmnet::cv.glmnet(x=pred.vars[[j]],
                                                y=outcome.var[[j]], 
                                                alpha = alpha.param,
-                                               nfolds=10,
+                                               nfolds=nfolds,
                                                type.measure="deviance",
                                                family = "binomial")})
     
@@ -807,7 +811,7 @@ regularisation.no_boot.mi.logit <- function(data.boot.mi_complete,
                              glmnet::cv.glmnet(x=pred.vars[[j]],
                                                y=outcome.var[[j]], 
                                                alpha = alpha.param,
-                                               nfolds=10,
+                                               nfolds=nfolds,
                                                type.measure="deviance",
                                                family = "binomial")})
     
@@ -1411,6 +1415,7 @@ glm.net.no_boot.mi.fit <- function(data.boot.mi_complete,
                                    data.set.no,
                                    thres.prob.classifier=NULL,
                                    model.options,
+                                   nfolds,
                                    alpha.param,
                                    seed.input)
 {
@@ -1423,6 +1428,7 @@ glm.net.no_boot.mi.fit <- function(data.boot.mi_complete,
                                               data.set.no=data.set.no,
                                               thres.prob.classifier=NULL,
                                               model.options=model.options,
+                                              nfolds=nfolds,
                                               alpha.param=alpha.param,
                                               seed.input=seed.input) 
   }
@@ -1440,6 +1446,7 @@ glm.net.no_boot.mi.fit <- function(data.boot.mi_complete,
                                                             data.set.no=data.set.no,
                                                             thres.prob.classifier=x,
                                                             model.options=model.options,
+                                                            nfolds=nfolds,
                                                             alpha.param=alpha.param,
                                                             seed.input=seed.input) 
                           })
